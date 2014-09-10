@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative '../review'
 
 describe "Movie" do 
 	describe "Instantiates generic Movie object" do
@@ -45,6 +46,28 @@ describe "Movie" do
 
 		it "should have correct runtime" do
 			expect(@movie.runtime).to eq 122
+		end
+	end
+
+	describe "works with reviews" do
+		before :each do
+			@movie = Movie.new("Movie Name", "PG", 122)
+			@review = Review.new("This was a great movie!", 5)
+		end
+
+		it "should be able to add review" do
+			@movie.add_review(@review)
+			expect(@movie.get_reviews).to include(@review)
+		end
+
+		it "should be able to get rating when there are reviews" do
+			@movie.add_review(@review)
+			@movie.add_review(Review.new("This was a horrible movie!", 1))
+			expect(@movie.get_rating).to eq 3
+		end
+
+		it "should be able to get rating when there are no reviews" do
+			expect(@movie.get_rating).to eq 0
 		end
 	end
 end
