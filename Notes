@@ -1,1 +1,0 @@
-Do @movie = Movie.new in instantiation and setters getters, but then discuss repeating and create before_each
